@@ -177,7 +177,7 @@ window.BORDER_COPY = {
     'footer.support': 'Soporte',
     'footer.legal-h': 'Legal',
     'footer.privacy': 'Aviso de privacidad',
-    'footer.terms':   'Términos del servicio',
+    'footer.terms':   'Términos y condiciones',
     'footer.delete':  'Eliminar cuenta',
     'footer.legal':   'border no está afiliada, respaldada ni representa a ninguna entidad gubernamental. Los tiempos de espera combinan datos oficiales de CBP con reportes de la comunidad y son una guía, no una garantía.',
     'footer.rights':  'Todos los derechos reservados.'
