@@ -381,34 +381,35 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
    stay anchored while the drawn route changes.                            */
 
 .stage__routeline {
-  /* pathLength="1" normalises each curve to length 1, so the offset is read
-     as a fraction of the curve: 0 draws it fully, and the stroke grows from
-     the path's start.
+  /* pathLength="1" normalises each curve to length 1, so the offset reads as
+     a fraction of the curve: 0 draws it fully, and the stroke grows from the
+     path's start.
 
-     Two details are load-bearing, both because of stroke-linecap:round.
+     The offsets are deliberately POSITIVE. A negative offset is the mirror of
+     this -- it reveals from the path's END -- and that is how this was first
+     written, with the curves authored pin-first. It drew correctly on Blink
+     and Gecko but reversed on mobile WebKit, which normalises a negative dash
+     offset the other way. Direction now comes from the path's own direction
+     (see index.html), which every engine agrees on. Do not reintroduce a
+     negative offset here.
 
-     The gap is 2, not 1. A dash whose overlap with the path has zero length
-     still paints its round cap -- a DOT, drawn by Blink and not by WebKit.
-     With "1 1" (period 2) an offset of 1 puts one at each end, d=0 and d=1;
-     the d=1 one sits on the pin with nothing to hide it. "1 2" (period 3)
-     moves that dash off the path entirely.
+     Two more details are load-bearing, both because of stroke-linecap:round.
+     A dash whose overlap with the path has zero length still paints its round
+     cap -- a DOT, drawn by Blink and not by WebKit.
 
-     The hidden offset is 1.03, not 1. At exactly 1 the preceding dash ends
-     on d=0 and its round cap -- which reaches half the stroke width, 7 of
-     the ~482 user units these curves measure, so 0.0145 of pathLength --
-     spills back onto the port end. 1.03 clears that with room to spare. */
+     The gap is 2, not 1. With "1 1" (period 2) an offset of 1 puts such a
+     dash at each end, d=0 and d=1; the d=1 one sits on the pin with nothing
+     to hide it. "1 2" (period 3) moves it off the path entirely.
 
-     These offsets are deliberately POSITIVE. A negative offset is the mirror
-     of this -- it reveals from the path's END instead -- and that is how this
-     was originally written, with the curves authored pin-first. It drew
-     correctly on Blink and Gecko but reversed on mobile WebKit, which
-     normalises a negative dash offset the other way. The direction now comes
-     from the path's own direction (see index.html), which every engine
-     agrees on. Do not reintroduce a negative offset here. */
+     The hidden offset is 1.03, not 1. At exactly 1 the preceding dash ends on
+     d=0 and its cap -- which reaches half the stroke width, 7 of the ~482
+     user units these curves measure, so 0.0145 of pathLength -- spills back
+     onto the port end. 1.03 clears that with room to spare. */
   stroke-dasharray: 1 2;
   stroke-dashoffset: 1.03;
   filter: drop-shadow(0 0 14px rgba(255, 255, 255, .55));
 }
+
 .stage__routeline--a { animation: drawA var(--cycle) var(--ease) infinite; }
 .stage__routeline--b { animation: drawB var(--cycle) var(--ease) infinite; }
 
