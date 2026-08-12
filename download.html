@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>border — download the app</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nata+Sans:wght@100..900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      height: 100%;
+      font-family: 'Noto Sans', sans-serif;
+      overflow-x: hidden;
+    }
+
+    body {
+      min-height: 100vh;
+      background: linear-gradient(145deg, #0055ff 0%, #00BFFF 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 20px;
+    }
+
+    .card {
+      border-radius: 32px;
+      padding: 48px 40px 44px;
+      max-width: 420px;
+      width: 100%;
+      text-align: center;
+      animation: fadeUp 0.6s ease both;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .logo-wrap {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      margin-bottom: 60px;
+    }
+
+    .logo-icon {
+      width: 64px;
+      height: 64px;
+      border-radius: 18px;
+      background: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      overflow: hidden;
+    }
+
+    .logo-icon img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .logo-name {
+      font-size: 2.6rem;
+      font-weight: 700;
+      color: white;
+      line-height: 1;
+    }
+
+    .tagline {
+      color: rgba(255,255,255,0.95);
+      font-size: 1.35rem;
+      font-weight: 400;
+      line-height: 1.55;
+      margin-bottom: 24px;
+    }
+
+    .tagline strong {
+      font-weight: 700;
+    }
+
+    .btn-group {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .store-btn {
+      display: inline-block;
+      max-width: 220px;
+      border-radius: 14px;
+      overflow: hidden;
+      transition: transform 0.18s ease, box-shadow 0.18s ease, opacity 0.18s ease;
+      cursor: pointer;
+      box-shadow: 0 6px 24px rgba(0,0,0,0.18);
+      line-height: 0;
+    }
+
+    .store-btn img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .store-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 32px rgba(0,0,0,0.25);
+    }
+
+    .store-btn:active {
+      transform: scale(0.97);
+      opacity: 0.9;
+    }
+
+    .store-btn.highlighted {
+      box-shadow: 0 0 0 3px rgba(255,255,255,0.75), 0 10px 32px rgba(0,0,0,0.22);
+    }
+
+    .detected-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: rgba(255,255,255,0.9);
+      background: rgba(255,255,255,0.18);
+      border-radius: 20px;
+      padding: 3px 10px;
+      margin-bottom: 14px;
+      letter-spacing: 0.03em;
+    }
+
+    .dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #4eff9e;
+      box-shadow: 0 0 6px #4eff9e;
+      display: inline-block;
+    }
+
+    .footer {
+      margin-top: 28px;
+      color: rgba(255,255,255,0.5);
+      font-size: 0.75rem;
+    }
+
+    @media (max-width: 480px) {
+      .card {
+        padding: 36px 24px 32px;
+        border-radius: 24px;
+      }
+      .logo-name {
+        font-size: 2.2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="card">
+
+    <div class="logo-wrap">
+      <div class="logo-icon">
+        <img src="assets/logo.png" alt="border app icon" />
+      </div>
+      <div class="logo-name">border</div>
+    </div>
+
+    <!-- <p class="tagline">
+      Check how's the line<br>
+    </p> -->
+
+    <p class="tagline">
+      Available now!
+    </p>
+
+    <!-- <div id="detected-wrap" style="min-height: 28px;"></div> -->
+
+    <div class="btn-group">
+      <a href="https://apps.apple.com/us/app/border-nebu-labs/id6758033827"
+         class="store-btn"
+         id="btn-ios"
+         target="_blank"
+         rel="noopener">
+        <img src="assets/apple-en.png" alt="Download on the App Store" />
+      </a>
+
+      <a href="https://play.google.com/store/apps/details?id=com.nebulabs.border"
+         class="store-btn"
+         id="btn-android"
+         target="_blank"
+         rel="noopener">
+        <img src="assets/google-en.png" alt="Get it on Google Play" />
+      </a>
+    </div>
+
+    <p class="footer">Available free · iOS &amp; Android</p>
+  </div>
+
+  <script>
+    const ua = navigator.userAgent || '';
+    const isIOS = /iPad|iPhone|iPod/.test(ua) && !window.MSStream;
+    const isAndroid = /Android/.test(ua);
+    const wrap = document.getElementById('detected-wrap');
+    const btnIOS = document.getElementById('btn-ios');
+    const btnAndroid = document.getElementById('btn-android');
+
+    if (isIOS) {
+      wrap.innerHTML = `<span class="detected-badge"><span class="dot"></span> Detected: iPhone / iPad</span>`;
+      btnIOS.classList.add('highlighted');
+    } else if (isAndroid) {
+      wrap.innerHTML = `<span class="detected-badge"><span class="dot"></span> Detected: Android device</span>`;
+      btnAndroid.classList.add('highlighted');
+    }
+  </script>
+
+</body>
+</html>

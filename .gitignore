@@ -1,0 +1,6 @@
+# Source material for the site's videos/screenshots — the exported .mp4 and
+# .png files under assets/ are what ship. The originals are ~109 MB and must
+# never be committed: GitHub Pages caps a repo at 1 GB and a file at 100 MB.
+iOS */
+*.mov
+.DS_Store

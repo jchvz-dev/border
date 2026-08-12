@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>border — How's the line?</title>
+<meta name="description" content="A community-powered app to quickly and easily share and find where to get in line, current wait times, and other useful US/Mexico border-crossing information." />
+<meta name="theme-color" content="#0055ff" />
+
+<meta property="og:title" content="border — How's the line?" />
+<meta property="og:description" content="Live US–Mexico border crossing wait times, and exactly where to get in line." />
+<meta property="og:type" content="website" />
+<meta property="og:image" content="assets/img/icon.png" />
+
+<link rel="icon" href="assets/img/icon.png" />
+<link rel="apple-touch-icon" href="assets/img/icon.png" />
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body data-theme="blue">
+
+<div class="grain" aria-hidden="true"></div>
+
+<svg class="sprite" aria-hidden="true" focusable="false">
+  <defs>
+    <g id="i-globe">
+      <circle cx="12" cy="12" r="10"/><path d="M12 2a15 15 0 0 1 0 20a15 15 0 0 1 0-20"/>
+      <path d="M2 12h20"/>
+    </g>
+    <g id="i-arrow"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></g>
+    <g id="i-plus"><path d="M5 12h14"/><path d="M12 5v14"/></g>
+  </defs>
+</svg>
+
+<!-- ═══════════════════════ NAV ═══════════════════════ -->
+<nav class="nav" id="nav">
+  <a class="nav__brand" href="#top" aria-label="border — home">
+    <span class="mark mark--sm"><img src="assets/img/icon.png" alt="" /></span>
+    <span class="wordmark nav__word">border</span>
+  </a>
+
+  <div class="nav__links">
+    <a href="#modes" data-i18n="nav.modes">Modes</a>
+    <a href="#privacy" data-i18n="nav.privacy">Privacy</a>
+    <a href="#faq" data-i18n="nav.faq">FAQ</a>
+  </div>
+
+  <button class="lang" id="lang" type="button" aria-label="Switch language">
+    <svg class="ico" viewBox="0 0 24 24"><use href="#i-globe"/></svg>
+    <span id="langLabel">ES</span>
+  </button>
+
+  <a class="btn btn--sm btn--solid" href="#download" data-i18n="nav.cta">Get the app</a>
+</nav>
+
+<!-- ═══════════════════════ HERO ═══════════════════════
+     No phone here — an abstract 3D map instead. The route draws itself from
+     the port down to the end of the queue, where the MapPinCheckInside
+     marker sits: the spot you'd actually join.                             -->
+<header class="hero" id="top" data-theme="blue">
+  <div class="hero__blob hero__blob--1" aria-hidden="true"></div>
+  <div class="hero__blob hero__blob--2" aria-hidden="true"></div>
+
+  <div class="hero__inner">
+    <div class="hero__l">
+      <h1 class="display display--xl" data-i18n-html="hero.title">How's the<br />line?</h1>
+    </div>
+
+    <div class="hero__stage" aria-hidden="true">
+      <div class="stage">
+        <div class="stage__grid"></div>
+        <svg class="stage__route" viewBox="0 0 400 460" preserveAspectRatio="none">
+          <!-- Two curves between the same endpoints, so the pin and flag stay
+               anchored while the drawn route changes between loops. -->
+          <path class="stage__routeline stage__routeline--a" pathLength="1"
+                d="M90 470 C 120 360, 190 320, 205 235 S 245 130, 300 40"
+                fill="none" stroke="currentColor" stroke-width="14" stroke-linecap="round" />
+          <path class="stage__routeline stage__routeline--b" pathLength="1"
+                d="M90 470 C 60 350, 165 305, 235 250 S 255 105, 300 40"
+                fill="none" stroke="currentColor" stroke-width="14" stroke-linecap="round" />
+        </svg>
+
+        <!-- End of the queue. The plane carries the same 3D transform as the
+             grid and route, so the pin lands exactly on the path's lower
+             endpoint (90,470 in the route's 400×460 viewBox); the pin then
+             counter-rotates so the icon itself renders upright. -->
+        <div class="stage__plane">
+          <!-- Flat on the map, so the 3D transform turns each circle into a
+               perspective ellipse. The zone marks the port at the route's
+               upper end; the ripples pulse at the queue's end. -->
+          <span class="zone"></span>
+          <span class="ripples">
+            <span class="ripple"></span>
+            <span class="ripple ripple--2"></span>
+          </span>
+
+          <div class="pin">
+            <svg class="pin__ico" viewBox="0 0 24 24">
+              <path class="pin__body" d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"/>
+              <path class="pin__check" d="m9 10 2 2 4-4"/>
+            </svg>
+          </div>
+        </div>
+
+        <div class="chip chip--a">
+          <span class="chip__dot chip__dot--orange"></span>
+          <span class="chip__name">San Ysidro</span>
+          <b class="chip__val">47</b><span class="chip__unit">min</span>
+        </div>
+        <div class="chip chip--b">
+          <span class="chip__dot chip__dot--green"></span>
+          <span class="chip__name">Otay Mesa</span>
+          <b class="chip__val">12</b><span class="chip__unit">min</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero__r">
+      <div class="lockup">
+        <span class="mark mark--md"><img src="assets/img/icon.png" alt="" /></span>
+        <span class="wordmark">border</span>
+      </div>
+      <p class="body" data-i18n="hero.body">
+        A community-powered app to quickly and easily share and find where to get
+        in line, current wait times, and other useful US/Mexico border-crossing
+        information.
+      </p>
+      <a class="btn btn--outline" href="#download">
+        <span data-i18n="hero.cta">Get the app</span>
+        <svg class="ico ico--sm" viewBox="0 0 24 24"><use href="#i-arrow"/></svg>
+      </a>
+    </div>
+  </div>
+</header>
+
+<!-- ═══════════════════════ PINNED RAIL ═══════════════════════
+     One sticky phone. Each panel crossing the viewport centre swaps the
+     screenshot and animates the page background. Releases with the last
+     panel, so the phone is gone before "However you cross".               -->
+<div class="rail">
+
+  <div class="rail__stage" aria-hidden="true">
+    <div class="device">
+      <div class="device__screen">
+        <video class="device__shot is-on" data-p="0" src="assets/video/get-directions.mp4"
+               poster="assets/video/get-directions-poster.jpg"
+               muted loop playsinline preload="none"></video>
+        <video class="device__shot" data-p="1" src="assets/video/both-sides.mp4"
+               poster="assets/video/both-sides-poster.jpg"
+               muted loop playsinline preload="none"></video>
+        <video class="device__shot" data-p="2" src="assets/video/change-mode.mp4"
+               poster="assets/video/change-mode-poster.jpg"
+               muted loop playsinline preload="none"></video>
+        <img class="device__shot" data-p="3" src="assets/img/shot-timer.png" alt="" />
+        <img class="device__shot" data-p="4" src="assets/img/shot-signin.png" alt="" />
+      </div>
+    </div>
+  </div>
+
+  <!-- ① Where the line ends -->
+  <section class="panel" data-p="0" data-theme="light">
+    <div class="panel__l">
+      <h2 class="display" data-i18n-html="p1.title">Not just how long.<br />Where.</h2>
+    </div>
+    <div class="panel__r">
+      <p class="body" data-i18n="p1.body">
+        See the current wait time, hours of operation, and the estimated or shared
+        starting point of the line on the map — then get directions straight to it.
+      </p>
+      <a class="btn btn--outline" href="#faq">
+        <span data-i18n="p1.cta">How it works</span>
+        <svg class="ico ico--sm" viewBox="0 0 24 24"><use href="#i-arrow"/></svg>
+      </a>
+    </div>
+
+    <!-- Mobile only: the phone travels with its own section instead of
+         being pinned. See the .rail__stage note in styles.css. -->
+    <div class="panel__media" aria-hidden="true">
+      <div class="device"><div class="device__screen"><video class="panel__shot" data-p="0" src="assets/video/get-directions.mp4" poster="assets/video/get-directions-poster.jpg"
+                 muted loop playsinline preload="none"></video></div></div>
+    </div>
+  </section>
+
+  <!-- ② Both directions -->
+  <section class="panel" data-p="1" data-theme="dark">
+    <div class="panel__l">
+      <h2 class="display" data-i18n-html="p2.title">Both ways<br />across.</h2>
+    </div>
+    <div class="panel__r">
+      <p class="body" data-i18n="p2.body">
+        Northbound waits come from official CBP data blended with live community
+        reports. Southbound, where no official feed exists, they come from traffic
+        conditions combined with submissions from the people crossing.
+      </p>
+      <div class="flags">
+        <span class="mark mark--flag"><img src="assets/img/flagUS.png" alt="" /></span>
+        <span class="mark mark--flag"><img src="assets/img/flagMX.png" alt="" /></span>
+      </div>
+    </div>
+
+    <!-- Mobile only: the phone travels with its own section instead of
+         being pinned. See the .rail__stage note in styles.css. -->
+    <div class="panel__media" aria-hidden="true">
+      <div class="device"><div class="device__screen"><video class="panel__shot" data-p="1" src="assets/video/both-sides.mp4" poster="assets/video/both-sides-poster.jpg"
+                 muted loop playsinline preload="none"></video></div></div>
+    </div>
+  </section>
+
+  <!-- ③ Crossing modes -->
+  <section class="panel" data-p="2" data-theme="light" id="modes">
+    <div class="panel__l">
+      <h2 class="display" data-i18n-html="modes.title">However<br />you cross.</h2>
+    </div>
+    <div class="panel__r">
+      <p class="body" data-i18n="modes.lede">
+        Navigate through the available ports, lanes and crossing methods. Each mode
+        has its own lanes, hours and waits.
+      </p>
+      <ul class="modelist">
+        <li><span class="modeicon"><img src="assets/img/mode-vehicular.png" alt="" /></span><span data-i18n="modes.m1">Passenger vehicles</span></li>
+        <li><span class="modeicon"><img src="assets/img/mode-pedestrian.png" alt="" /></span><span data-i18n="modes.m2">Pedestrian</span></li>
+        <li><span class="modeicon"><img src="assets/img/mode-commercial.png" alt="" /></span><span data-i18n="modes.m3">Commercial</span></li>
+      </ul>
+    </div>
+
+    <!-- Mobile only: the phone travels with its own section instead of
+         being pinned. See the .rail__stage note in styles.css. -->
+    <div class="panel__media" aria-hidden="true">
+      <div class="device"><div class="device__screen"><video class="panel__shot" data-p="2" src="assets/video/change-mode.mp4" poster="assets/video/change-mode-poster.jpg"
+                 muted loop playsinline preload="none"></video></div></div>
+    </div>
+  </section>
+
+  <!-- ④ Community -->
+  <section class="panel" data-p="3" data-theme="blue">
+    <div class="panel__l">
+      <h2 class="display" data-i18n-html="p3.title">You join the line.<br />Everyone finds out.</h2>
+    </div>
+    <div class="panel__r">
+      <p class="body" data-i18n="p3.body">
+        Tap “I'm in line here” when you join, then swipe to confirm. Your wait
+        instantly updates the line's status for everyone else — and theirs
+        updates yours.
+      </p>
+      <a class="btn btn--outline" href="#download">
+        <span data-i18n="p3.cta">Start sharing</span>
+        <svg class="ico ico--sm" viewBox="0 0 24 24"><use href="#i-arrow"/></svg>
+      </a>
+    </div>
+
+    <!-- Mobile only: the phone travels with its own section instead of
+         being pinned. See the .rail__stage note in styles.css. -->
+    <div class="panel__media" aria-hidden="true">
+      <div class="device"><div class="device__screen"><img class="panel__shot" data-p="3" src="assets/img/shot-timer.png" alt="" /></div></div>
+    </div>
+  </section>
+
+  <!-- ④ Guest / account — the phone releases here -->
+  <section class="panel" data-p="4" data-theme="light">
+    <div class="panel__l">
+      <h2 class="display" data-i18n-html="p4.title">No account<br />needed to start.</h2>
+    </div>
+    <div class="panel__r">
+      <p class="body" data-i18n="p4.body">
+        Use it as a guest for as long as you like. Creating an account adds
+        automatic sign-in and keeps a record of your submissions — worth it
+        whenever you're ready.
+      </p>
+      <a class="btn btn--outline" href="#download">
+        <span data-i18n="p4.cta">Try it free</span>
+        <svg class="ico ico--sm" viewBox="0 0 24 24"><use href="#i-arrow"/></svg>
+      </a>
+    </div>
+
+    <!-- Mobile only: the phone travels with its own section instead of
+         being pinned. See the .rail__stage note in styles.css. -->
+    <div class="panel__media" aria-hidden="true">
+      <div class="device"><div class="device__screen"><img class="panel__shot" data-p="4" src="assets/img/shot-signin.png" alt="" /></div></div>
+    </div>
+  </section>
+</div>
+
+<main>
+
+<!-- ═══════════ PRIVACY ═══════════ -->
+<section class="sec sec--light" id="privacy">
+  <div class="sec__inner">
+    <div class="sec__head">
+      <h2 class="h2 h2--center reveal" data-i18n="priv.title">Your location stays yours.</h2>
+      <p class="lede lede--center reveal" data-reveal-delay="1" data-i18n="priv.lede">
+        Knowing where a line starts is only useful if sharing it never costs you your
+        privacy. border asks for the least it can, and puts every choice in your hands.
+      </p>
+    </div>
+
+    <div class="cards">
+      <article class="card reveal" data-reveal-delay="1">
+        <h3 data-i18n="priv.c1">You choose the moment</h3>
+        <p data-i18n="priv.c1t">
+          By default your location is read at exactly two points you decide on — when
+          you start your timer, and when you end it.
+        </p>
+      </article>
+      <article class="card reveal" data-reveal-delay="2">
+        <h3 data-i18n="priv.c2">Automatic, only if you ask</h3>
+        <p data-i18n="priv.c2t">
+          You can allow background location so the app ends your timer on its own once
+          you've crossed. Entirely optional, and off until you turn it on.
+        </p>
+      </article>
+      <article class="card reveal" data-reveal-delay="3">
+        <h3 data-i18n="priv.c3">Both sides, both languages</h3>
+        <p data-i18n="priv.c3t">
+          Fully translated in English and Spanish, switchable whenever you like.
+        </p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ FAQ ═══════════ -->
+<section class="sec sec--light sec--faq" id="faq">
+  <div class="sec__inner sec__inner--narrow">
+    <h2 class="h2 h2--center reveal" data-i18n="faq.title">Frequently asked questions</h2>
+
+    <div class="faq reveal" data-reveal-delay="1">
+      <details class="qa">
+        <summary>
+          <span data-i18n="faq.q1">How can I check the status of a border crossing line?</span>
+          <svg class="ico ico--sm qa__chev" viewBox="0 0 24 24"><use href="#i-plus"/></svg>
+        </summary>
+        <p data-i18n="faq.a1">
+          Open the app and find the line's latest information by navigating through the
+          available ports, lanes, and crossing methods. You'll be able to see the current
+          wait time, hours of operation, the estimated or shared starting point of the
+          line on the map, and when the information was last updated.
+        </p>
+      </details>
+
+      <details class="qa">
+        <summary>
+          <span data-i18n="faq.q2">How do I submit an update to a line status?</span>
+          <svg class="ico ico--sm qa__chev" viewBox="0 0 24 24"><use href="#i-plus"/></svg>
+        </summary>
+        <p data-i18n="faq.a2">
+          First, make sure you're not driving and it's safe to use the app. When you join
+          a line, open the app and find its corresponding card. Confirm you're viewing the
+          correct port, line type, and crossing method. Tap “I'm in line here,” adjust
+          details if needed, then swipe right to confirm your submission. This instantly
+          updates the line's status for others.
+        </p>
+      </details>
+
+      <details class="qa">
+        <summary>
+          <span data-i18n="faq.q3">How do I find directions to where a line starts?</span>
+          <svg class="ico ico--sm qa__chev" viewBox="0 0 24 24"><use href="#i-plus"/></svg>
+        </summary>
+        <p data-i18n="faq.a3">
+          Tap the blue-tinted transparent circle on the map. This will allow you to choose
+          your preferred navigation app and receive directions to that location.
+        </p>
+      </details>
+
+      <details class="qa">
+        <summary>
+          <span data-i18n="faq.q4">Do I need an account?</span>
+          <svg class="ico ico--sm qa__chev" viewBox="0 0 24 24"><use href="#i-plus"/></svg>
+        </summary>
+        <p data-i18n="faq.a4">No, you can use the app as a guest.</p>
+      </details>
+
+      <details class="qa">
+        <summary>
+          <span data-i18n="faq.q5">What are the benefits of creating an account?</span>
+          <svg class="ico ico--sm qa__chev" viewBox="0 0 24 24"><use href="#i-plus"/></svg>
+        </summary>
+        <p data-i18n="faq.a5">
+          Creating an account allows automatic sign-in and lets you keep a record of your
+          submissions. This feature will be expanded in a future release.
+        </p>
+      </details>
+
+      <details class="qa">
+        <summary>
+          <span data-i18n="faq.q6">I need to delete my account. How can I do it?</span>
+          <svg class="ico ico--sm qa__chev" viewBox="0 0 24 24"><use href="#i-plus"/></svg>
+        </summary>
+        <p>
+          <a class="link" href="https://nebu-labs.com/border/delete" target="_blank" rel="noopener"
+             data-i18n="faq.a6">Follow the delete account steps →</a>
+        </p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ DOWNLOAD ═══════════ -->
+<section class="sec sec--blue sec--download" id="download">
+  <div class="sec__blob" aria-hidden="true"></div>
+  <div class="sec__inner">
+    <div class="dl">
+      <span class="mark mark--lg reveal"><img src="assets/img/icon.png" alt="" /></span>
+      <h2 class="h2 h2--center reveal" data-reveal-delay="1" data-i18n-html="dl.title">
+        Check the line<br />before you go.
+      </h2>
+      <p class="lede lede--center reveal" data-reveal-delay="2" data-i18n="dl.lede">
+        Free on iPhone and Android, in English and Spanish.
+      </p>
+
+      <div class="dl__buttons reveal" data-reveal-delay="3">
+        <a class="store" href="https://apps.apple.com/us/app/border-hows-the-line/id6758033827" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16.4 12.7c0-2.3 1.9-3.4 2-3.5-1.1-1.6-2.8-1.8-3.4-1.8-1.4-.2-2.8.9-3.5.9s-1.8-.8-3-.8c-1.5 0-2.9.9-3.7 2.3-1.6 2.7-.4 6.8 1.1 9 .8 1.1 1.6 2.3 2.8 2.2 1.1 0 1.6-.7 2.9-.7s1.7.7 2.9.7 2-1.1 2.7-2.2c.9-1.2 1.2-2.4 1.2-2.5 0 0-2.4-.9-2.4-3.6zM14.2 5.8c.6-.8 1-1.8.9-2.8-.9 0-2 .6-2.7 1.4-.6.7-1.1 1.8-.9 2.8 1 0 2-.5 2.7-1.4z"/></svg>
+          <span><small data-i18n="store.apple1">Download on the</small><b>App Store</b></span>
+        </a>
+        <a class="store" href="https://play.google.com/store/apps/details?id=com.nebulabs.border" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M3.9 1.8A1.5 1.5 0 0 0 3 3.2v17.6a1.5 1.5 0 0 0 .9 1.4l10.1-10.2L3.9 1.8z"/>
+            <path d="M17.9 8.7 5.6 1.6l9.1 9.2 3.2-2.1z"/>
+            <path d="M20.7 10.9 18.4 9.6l-3.3 2.4 3.3 2.4 2.3-1.3a1.5 1.5 0 0 0 0-2.2z"/>
+            <path d="M5.6 22.4 17.9 15.3l-3.2-2.1-9.1 9.2z"/>
+          </svg>
+          <span><small data-i18n="store.google1">Get it on</small><b>Google Play</b></span>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ═══════════════════════ FOOTER ═══════════════════════ -->
+<footer class="footer">
+  <div class="footer__inner">
+    <div class="footer__brand">
+      <span class="mark mark--md"><img src="assets/img/icon.png" alt="" /></span>
+      <p class="footer__tag" data-i18n="footer.tag">How's the line?</p>
+    </div>
+
+    <nav class="footer__cols">
+      <div>
+        <h4 data-i18n="footer.app">App</h4>
+        <a href="https://apps.apple.com/us/app/border-hows-the-line/id6758033827" target="_blank" rel="noopener">iOS</a>
+        <a href="https://play.google.com/store/apps/details?id=com.nebulabs.border" target="_blank" rel="noopener">Android</a>
+      </div>
+      <div>
+        <h4 data-i18n="footer.support">Support</h4>
+        <a href="#faq" data-i18n="nav.faq">FAQ</a>
+        <a href="mailto:contact@nebu-labs.com">contact@nebu-labs.com</a>
+      </div>
+      <div>
+        <h4 data-i18n="footer.legal-h">Legal</h4>
+        <a href="https://nebu-labs.com/border/privacy" target="_blank" rel="noopener" data-i18n="footer.privacy">Privacy Policy</a>
+        <a href="https://nebu-labs.com/border/delete" target="_blank" rel="noopener" data-i18n="footer.delete">Delete account</a>
+      </div>
+    </nav>
+  </div>
+
+  <div class="footer__legal">
+    <p data-i18n="footer.legal">
+      border is not affiliated with, endorsed by, or representing any government
+      agency. Wait times combine official CBP data with community submissions and
+      are a guide, not a guarantee.
+    </p>
+    <p>© 2026 Nebu Labs. <span data-i18n="footer.rights">All rights reserved.</span></p>
+  </div>
+</footer>
+
+<script src="i18n.js"></script>
+<script src="main.js"></script>
+</body>
+</html>
