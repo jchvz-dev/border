@@ -90,6 +90,7 @@ window.BORDER_COPY = {
     'footer.support': 'Support',
     'footer.legal-h': 'Legal',
     'footer.privacy': 'Privacy Policy',
+    'footer.terms':   'Terms of Service',
     'footer.delete':  'Delete account',
     'footer.legal':   'border is not affiliated with, endorsed by, or representing any government agency. Wait times combine official CBP data with community submissions and are a guide, not a guarantee.',
     'footer.rights':  'All rights reserved.'
@@ -176,6 +177,7 @@ window.BORDER_COPY = {
     'footer.support': 'Soporte',
     'footer.legal-h': 'Legal',
     'footer.privacy': 'Aviso de privacidad',
+    'footer.terms':   'Términos del servicio',
     'footer.delete':  'Eliminar cuenta',
     'footer.legal':   'border no está afiliada, respaldada ni representa a ninguna entidad gubernamental. Los tiempos de espera combinan datos oficiales de CBP con reportes de la comunidad y son una guía, no una garantía.',
     'footer.rights':  'Todos los derechos reservados.'
