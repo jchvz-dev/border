@@ -70,12 +70,18 @@
         <div class="stage__grid"></div>
         <svg class="stage__route" viewBox="0 0 400 460" preserveAspectRatio="none">
           <!-- Two curves between the same endpoints, so the pin and flag stay
-               anchored while the drawn route changes between loops. -->
+               anchored while the drawn route changes between loops.
+
+               Both are authored port (300,40) -> pin (90,470), i.e. in the
+               direction they are drawn. See the dash note in styles.css: the
+               reveal runs from the path's START, so the drawing direction is
+               the path's own direction and nothing depends on the sign of
+               stroke-dashoffset. -->
           <path class="stage__routeline stage__routeline--a" pathLength="1"
-                d="M90 470 C 120 360, 190 320, 205 235 S 245 130, 300 40"
+                d="M300 40 C 245 130, 220 150, 205 235 C 190 320, 120 360, 90 470"
                 fill="none" stroke="currentColor" stroke-width="14" stroke-linecap="round" />
           <path class="stage__routeline stage__routeline--b" pathLength="1"
-                d="M90 470 C 60 350, 165 305, 235 250 S 255 105, 300 40"
+                d="M300 40 C 255 105, 305 195, 235 250 C 165 305, 60 350, 90 470"
                 fill="none" stroke="currentColor" stroke-width="14" stroke-linecap="round" />
         </svg>
 
