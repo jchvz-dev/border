@@ -381,16 +381,22 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
    stay anchored while the drawn route changes.                            */
 
 .stage__routeline {
-  /* pathLength="1" normalises each curve to length 1, so offset 1 hides the
-     stroke and offset 0 draws it fully, growing from the path's start.
+  /* pathLength="1" normalises each curve to length 1, so the offset is read
+     as a fraction of the curve: 0 draws it fully, and the stroke grows from
+     the path's start.
 
-     The gap is 2, not 1, because of stroke-linecap:round. A dash whose
-     overlap with the path has zero length still paints a round cap -- a DOT,
-     drawn by Blink and not by WebKit. With "1 1" (period 2) offset 1 puts one
-     at each end of the path, d=0 and d=1; the d=1 one sits on the pin with
-     nothing to hide it, which is the flash this fixes. "1 2" (period 3) moves
-     that dash off the path entirely. The d=0 one is handled by the keyframes
-     below, which never hold offset 1 while the stroke is visible.
+     Two details are load-bearing, both because of stroke-linecap:round.
+
+     The gap is 2, not 1. A dash whose overlap with the path has zero length
+     still paints its round cap -- a DOT, drawn by Blink and not by WebKit.
+     With "1 1" (period 2) an offset of 1 puts one at each end, d=0 and d=1;
+     the d=1 one sits on the pin with nothing to hide it. "1 2" (period 3)
+     moves that dash off the path entirely.
+
+     The hidden offset is 1.03, not 1. At exactly 1 the preceding dash ends
+     on d=0 and its round cap -- which reaches half the stroke width, 7 of
+     the ~482 user units these curves measure, so 0.0145 of pathLength --
+     spills back onto the port end. 1.03 clears that with room to spare. */
 
      These offsets are deliberately POSITIVE. A negative offset is the mirror
      of this -- it reveals from the path's END instead -- and that is how this
@@ -400,28 +406,27 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
      from the path's own direction (see index.html), which every engine
      agrees on. Do not reintroduce a negative offset here. */
   stroke-dasharray: 1 2;
-  stroke-dashoffset: 1;
+  stroke-dashoffset: 1.03;
   filter: drop-shadow(0 0 14px rgba(255, 255, 255, .55));
 }
 .stage__routeline--a { animation: drawA var(--cycle) var(--ease) infinite; }
 .stage__routeline--b { animation: drawB var(--cycle) var(--ease) infinite; }
 
-/* The .96 is not a rounding artefact. Offset exactly 1 is the one value that
-   leaves a zero-length dash on the path (at d=0, the port end), which
-   stroke-linecap:round paints as a dot. Offset 1 is therefore only ever held
-   while opacity is 0; by the time the stroke is visible it is strictly past
-   it, so no dot is painted at either end. Do not round this back up to 1. */
+/* The offset moves across exactly ONE keyframe interval. --ease is a strong
+   ease-out and it applies per interval, so an intermediate offset keyframe
+   makes the line lunge, decelerate to a near-stop, then lunge again. Fade the
+   stroke in while the offset is parked, and move it in one go. */
 @keyframes drawA {
-  0%,   7% { stroke-dashoffset: 1;   opacity: 0; }
-  9%       { stroke-dashoffset: .96; opacity: 1; }
-  22%, 40% { stroke-dashoffset: 0;   opacity: 1; }
-  46%,100% { stroke-dashoffset: 0;   opacity: 0; }
+  0%,   9% { stroke-dashoffset: 1.03; opacity: 0; }
+  11%      { stroke-dashoffset: 1.03; opacity: 1; }
+  24%, 40% { stroke-dashoffset: 0;    opacity: 1; }
+  46%,100% { stroke-dashoffset: 0;    opacity: 0; }
 }
 @keyframes drawB {
-  0%,  57% { stroke-dashoffset: 1;   opacity: 0; }
-  59%      { stroke-dashoffset: .96; opacity: 1; }
-  72%, 90% { stroke-dashoffset: 0;   opacity: 1; }
-  96%,100% { stroke-dashoffset: 0;   opacity: 0; }
+  0%,  59% { stroke-dashoffset: 1.03; opacity: 0; }
+  61%      { stroke-dashoffset: 1.03; opacity: 1; }
+  74%, 90% { stroke-dashoffset: 0;    opacity: 1; }
+  96%,100% { stroke-dashoffset: 0;    opacity: 0; }
 }
 
 /* ── Map markers ────────────────────────────────────────────────────────
