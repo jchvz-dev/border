@@ -114,7 +114,7 @@
         
         <div class="meta">
             <strong>Effective Date:</strong> January 21, 2026<br>
-            <strong>Last Updated:</strong> August 12, 2026
+            <strong>Last Updated:</strong> September 30, 2026
         </div>
 
         <h2>1. Introduction</h2>
@@ -147,9 +147,9 @@
 
         <p><strong>Border Crossing Information:</strong></p>
         <ul>
-            <li>Manually registered border crossing logs (feature coming soon)</li>
             <li>Status updates you submit about border crossing lines</li>
             <li>Wait time information when you join a line</li>
+            <li>Your personal crossing history, when you have an account</li>
         </ul>
 
         <h3>2.2 Information Collected Automatically</h3>
@@ -158,6 +158,7 @@
             <li>Your device location when you manually share it by joining a line or submitting status updates</li>
             <li>Location data collected through geofencing when you approach a port of entry (used to automatically track wait times)</li>
             <li>We do NOT continuously track your location; location is only collected when you actively use location-based features or when geofencing is triggered</li>
+            <li>When you submit a status update, we also record how precise your device reported its location to be, and whether your device's operating system indicated the location came from a mock or simulated source. We use these signals only to assess whether a submission is genuine, so that deliberately falsified reports do not distort the wait times shown to other users. On iOS, the mock-source signal is not available and is not collected.</li>
         </ul>
 
         <p><strong>Device Information:</strong></p>
@@ -168,6 +169,13 @@
             <li>Mobile network information</li>
             <li>App version</li>
             <li>IP address</li>
+        </ul>
+
+        <p><strong>Subscription Information:</strong></p>
+        <ul>
+            <li>If you purchase a border Pro subscription, we store the status of that subscription on your profile: whether it is active, when it expires or renews, which plan you purchased, and which app store processed it</li>
+            <li>We also store the identifier our subscription management provider uses for your account, so that support requests can be traced to the correct subscription</li>
+            <li><strong>We never receive or store your payment card details.</strong> Payment is processed entirely by the Apple App Store or Google Play — see Section 4.1</li>
         </ul>
 
         <p><strong>Usage Data:</strong></p>
@@ -190,6 +198,11 @@
             <li>Google AdMob collects information about your device and ad interactions for advertising purposes</li>
         </ul>
 
+        <p><strong>Subscription Management:</strong></p>
+        <ul>
+            <li>RevenueCat informs us when a subscription is purchased, renewed, cancelled, expires, or is refunded, so that we can grant or remove access to paid features</li>
+        </ul>
+
         <h3>2.4 Third-Party Data Sources</h3>
         <p>In addition to user-contributed data, the App displays information from external sources:</p>
 
@@ -203,7 +216,7 @@
         <p><strong>Mapbox:</strong></p>
         <ul>
             <li>Mapping services and geolocation data</li>
-            <li>© Mapbox © OpenStreetMap contributors</li>
+            <li>&copy; Mapbox &copy; OpenStreetMap contributors</li>
             <li>Subject to Mapbox Terms of Service: <a href="https://www.mapbox.com/legal/tos" target="_blank">https://www.mapbox.com/legal/tos</a></li>
             <li>Privacy Policy: <a href="https://www.mapbox.com/legal/privacy" target="_blank">https://www.mapbox.com/legal/privacy</a></li>
         </ul>
@@ -229,7 +242,21 @@
             <li>To track your wait time when you join a line (using location and geofencing data)</li>
         </ul>
 
-        <h3>3.3 Service Improvement</h3>
+        <h3>3.3 Integrity of Submitted Data</h3>
+        <ul>
+            <li>To assess whether a submitted status update is genuine, using the device location signals described in Section 2.2</li>
+            <li>To detect and prevent deliberately falsified submissions, which would otherwise make the wait times shown to all users less accurate</li>
+            <li>We do not use these signals to identify you, to profile you, or for advertising</li>
+        </ul>
+
+        <h3>3.4 Subscriptions</h3>
+        <ul>
+            <li>To determine whether your account has access to paid features</li>
+            <li>To display your subscription status, renewal or expiry date, and plan in the App</li>
+            <li>To respond to support requests about a subscription</li>
+        </ul>
+
+        <h3>3.5 Service Improvement</h3>
         <ul>
             <li>To understand how users interact with the App</li>
             <li>To identify and fix technical issues</li>
@@ -237,7 +264,7 @@
             <li>To analyze usage patterns and trends</li>
         </ul>
 
-        <h3>3.4 Communication and Push Notifications</h3>
+        <h3>3.6 Communication and Push Notifications</h3>
         <ul>
             <li>To respond to your inquiries and support requests</li>
             <li>To notify you of important changes to the App or our policies</li>
@@ -246,7 +273,7 @@
         <p><strong>Notifications sent by the App</strong></p>
         <p>The App can send two kinds of notifications, and they work differently:</p>
         <ul>
-            <li><strong>On-device notifications</strong> are generated by your own device — for example, reminders tied to a crossing you are timing. These do not require an account and no data leaves your device to produce them.</li>
+            <li><strong>On-device notifications</strong> are generated by your own device &mdash; for example, reminders tied to a crossing you are timing. These do not require an account and no data leaves your device to produce them.</li>
             <li><strong>Wait time alerts</strong> are sent from our servers to your device. These are an optional feature for signed-in subscribers.</li>
         </ul>
 
@@ -269,16 +296,17 @@
             <li>We do not use push notifications for advertising or marketing</li>
         </ul>
 
-        <h3>3.5 Advertising</h3>
+        <h3>3.7 Advertising</h3>
         <ul>
             <li>To display advertisements through Google AdMob</li>
             <li>Banner ads may display during normal app usage</li>
             <li>Interstitial ads may appear when you open the app after periods of inactivity (typically 42+ minutes)</li>
             <li>You can opt out of personalized advertising through your device settings or within the app</li>
             <li>AdMob uses your information to serve targeted ads based on your interests and usage</li>
+            <li>Advertisements are not shown to users with an active border Pro subscription</li>
         </ul>
 
-        <h3>3.6 Legal Compliance</h3>
+        <h3>3.8 Legal Compliance</h3>
         <ul>
             <li>To comply with applicable laws and regulations</li>
             <li>To respond to legal requests and prevent fraud</li>
@@ -314,10 +342,19 @@
             <li>Privacy Policy: <a href="https://expo.dev/privacy" target="_blank">https://expo.dev/privacy</a></li>
         </ul>
 
-        <p><strong>RevenueCat (Payment Processing - Future):</strong></p>
+        <p><strong>RevenueCat (Subscription Management):</strong></p>
         <ul>
-            <li>Will process subscription payments when subscriptions are implemented</li>
+            <li>Verifies purchases made through the Apple App Store or Google Play and tells us whether your account has access to paid features</li>
+            <li>We provide RevenueCat with your account identifier so that a purchase can be linked to your Border account and carried across your devices</li>
+            <li><strong>RevenueCat does not process payments</strong> &mdash; Apple and Google do. We never receive or store your payment card details</li>
             <li>Privacy Policy: <a href="https://www.revenuecat.com/privacy" target="_blank">https://www.revenuecat.com/privacy</a></li>
+        </ul>
+
+        <p><strong>Apple App Store, Google Play (Payment Processing):</strong></p>
+        <ul>
+            <li>Process subscription payments and hold the billing relationship with you</li>
+            <li>Your purchase, renewal, cancellation and refund are governed by their terms</li>
+            <li>Privacy Policies: <a href="https://www.apple.com/legal/privacy/" target="_blank">https://www.apple.com/legal/privacy/</a>, <a href="https://policies.google.com/privacy" target="_blank">https://policies.google.com/privacy</a></li>
         </ul>
 
         <p><strong>Apple, Google (Authentication):</strong></p>
@@ -343,7 +380,7 @@
         <p>We use user contributions (status updates, wait times, location data) to calculate and display wait time estimates:</p>
         <ul>
             <li><strong>Guest users:</strong> All contributions are anonymous by default and cannot be linked to any individual</li>
-            <li><strong>Account users:</strong> Contributions are associated with your account for your personal history. If you delete your account, all your contributions are immediately anonymized and cannot be traced back to you</li>
+            <li><strong>Account users:</strong> Contributions are associated with your account for your personal history. If you delete your account, the link between you and your contributions is removed immediately and permanently &mdash; the contributions remain, but they are no longer associated with your account or with any identifier we can connect back to you</li>
             <li>Aggregated wait time data displayed to all users is calculated from anonymized contributions and cannot identify individual users</li>
         </ul>
         <p>This ensures your privacy while maintaining accurate wait time predictions for the community.</p>
@@ -376,11 +413,12 @@
         <h3>5.2 Account Deletion</h3>
         <p>You can delete your account at any time. Upon deletion:</p>
         <ul>
-            <li>Your account information will be deleted from our active systems</li>
-            <li>Your contributions (status updates, wait times) will be immediately anonymized and cannot be linked back to you</li>
+            <li>Your account information, including your subscription status, wait time alerts, and push notification token, will be deleted from our active systems</li>
+            <li>Your contributions (status updates, wait times) are immediately unlinked from your account and are no longer associated with any identifier we can connect back to you. The crossing location and time recorded with each contribution are retained, because they are the data that makes wait time estimates work</li>
             <li>Anonymized contributions may remain in our systems to maintain data integrity for wait time calculations</li>
             <li>Some information may be retained for legal or operational purposes as required by law</li>
         </ul>
+        <p><strong>Deleting your account does not cancel an active subscription.</strong> Subscriptions are held by your app store account, not by us, and must be cancelled separately in your app store settings. See Section 8.6 of our Terms and Conditions.</p>
 
         <h3>5.3 Location Data</h3>
         <p>You can opt out of location tracking at any time through your device settings or App permissions. However:</p>
@@ -399,7 +437,7 @@
         </ul>
 
         <h3>5.5 Data Export</h3>
-        <p>In future releases, you will be able to view and export your personal border crossing history and contributions.</p>
+        <p>In future releases, you will be able to export your personal border crossing history and contributions. You can view your crossing history in the App today.</p>
 
         <h3>5.6 California Privacy Rights (CCPA)</h3>
         <p>If you are a California resident, you have additional rights under the California Consumer Privacy Act:</p>
@@ -439,8 +477,9 @@
         <p>We retain your information for as long as necessary to provide our services and fulfill the purposes described in this Privacy Policy:</p>
         <ul>
             <li>Account information is retained until you delete your account</li>
-            <li>Upon account deletion, personal data is removed, and contributions are anonymized immediately</li>
+            <li>Upon account deletion, personal data is removed, and contributions are unlinked from your account immediately</li>
             <li>Anonymized data may be retained indefinitely for statistical and operational purposes</li>
+            <li>Records relating to subscription transactions may be retained by us, and by the app store that processed the payment, for as long as required by tax, accounting, and other legal obligations, even after you delete your account</li>
             <li>Some data may be retained longer if required by law or for legitimate business purposes</li>
             <li>Push notification tokens are retained while the alerts feature is enabled on your account, and are marked invalid and no longer used once your device stops accepting notifications, you revoke notification permission, or you sign out</li>
             <li>Wait time alerts are retained until you delete them or delete your account</li>
@@ -481,7 +520,7 @@
 
         <hr>
 
-        <p style="text-align: center; color: #666; margin-top: 40px;"><strong>Last Updated:</strong> August 12, 2026</p>
+        <p style="text-align: center; color: #666; margin-top: 40px;"><strong>Last Updated:</strong> September 30, 2026</p>
     </div>
 </body>
 </html>
